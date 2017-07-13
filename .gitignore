@@ -1,0 +1,92 @@
+# =============== #
+# Unity generated #
+# =============== #
+[Tt]emp/
+[Oo]bj/
+[Bb]uild
+/[Ll]ibrary/
+/[Ll]ibrary_iOS/
+/[Ll]ibrary_Android/
+sysinfo.txt
+*.stackdump
+ 
+# ===================================== #
+# Visual Studio / MonoDevelop generated #
+# ===================================== #
+[Ee]xported[Oo]bj/
+.vs/
+/*.userprefs
+/*.csproj
+/*.pidb
+/*.suo
+/*.sln*
+/*.user
+/*.unityproj
+/*.booproj
+ 
+# ============ #
+# OS generated #
+# ============ #
+.DS_Store*
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+[Tt]humbs.db
+[Dd]esktop.ini
+Assets/Standard Assets/VoxelBusters/Common/AssetStoreProductUtility/AssetStoreProduct/Scripts/Editor.meta
+Assets/Standard Assets/VoxelBusters/Common/Utility/Automators/Script/GlobalDefines/Editor.meta
+Assets/Standard Assets/VoxelBusters/Common/Utility/Extensions/Scripts/ScriptableObject/Editor.meta
+Assets/Standard Assets/VoxelBusters/Common/Utility/ThirdParty/Editor.meta
+Assets/Standard Assets/VoxelBusters/Common/Utility/UnityEditor/Scripts/CustomProperty/ArrayDrawer/Editor.meta
+Assets/Standard Assets/VoxelBusters/Common/Utility/UnityEditor/Scripts/CustomProperty/EnumMask/Editor.meta
+Assets/Standard Assets/VoxelBusters/Common/Utility/UnityEditor/Scripts/CustomProperty/InspectorButton/Editor.meta
+Assets/Standard Assets/VoxelBusters/Common/Utility/UnityEditor/Scripts/CustomProperty/OnValueChange/Editor.meta
+Assets/Standard Assets/VoxelBusters/Common/Utility/UnityEditor/Scripts/CustomProperty/Popup/Editor.meta
+Assets/Standard Assets/VoxelBusters/Common/Utility/UnityEditor/Scripts/CustomProperty/Regex/Editor.meta
+Assets/Standard Assets/VoxelBusters/Common/Utility/UnityEditor/Scripts/Editor.meta
+Assets/Standard Assets/VoxelBusters/Common/Utility/Web/Demo/Scripts/Editor.meta
+Assets/Standard Assets/VoxelBusters/Common/Utility/Zip/Editor.meta
+Assets/Standard Assets/VoxelBusters/NativePlugins/Editor.meta
+Assets/Standard Assets/VoxelBusters/NativePlugins/Plugins/AddonServices/Base/Editor.meta
+Assets/Standard Assets/VoxelBusters/NativePlugins/Plugins/AddonServices/SoomlaGrow/Settings/Editor.meta
+Assets/Standard Assets/VoxelBusters/NativePlugins/Plugins/Features/Billing/DataTypes/Product/Editor.meta
+Assets/Standard Assets/VoxelBusters/NativePlugins/Scripts/AddonServices/OneSignal/Settings/Editor.meta
+Assets/Standard Assets/VoxelBusters/NativePlugins/Scripts/Internal/Simulators/AddressBook/Editor.meta
+Assets/Standard Assets/VoxelBusters/NativePlugins/Scripts/Internal/Simulators/GameServices/Core/Editor.meta
+Assets/Standard Assets/VoxelBusters/NativePlugins/Scripts/Internal/Simulators/Notification/Editor.meta
+Assets/Standard Assets/VoxelBusters/NativePlugins/Scripts/Misc/ID/Editor.meta
+Assets/Standard Assets/VoxelBusters/NativePlugins/Scripts/NP/Editor.meta
+Assets/Standard Assets/VoxelBusters/NativePlugins/Scripts/Settings/Application/Editor.meta
+Assets/Resources/Effects.meta
+Assets/Editor/SceneViewWindow.cs.meta
+Assets/Animations/Players.meta
+Assets/Animations/Players/Token.controller.meta
+Assets/Animations/Players/jump_animation.anim.meta
+Assets/Fabric.meta
+Assets/Animations/Home.meta
+Assets/Fabric/Kits.meta
+Assets/Fabric/Kits/Crashlytics.meta
+Assets/Editor Default Resources.meta
+Assets/Fabric/Editor.meta
+Assets/Fabric/Kits/Crashlytics/Editor.meta
+#Assets/Plugins/Android/play-services-base-9.6.0.aar
+#Assets/Plugins/Android/play-services-base-9.6.0.aar.meta
+#Assets/Plugins/Android/play-services-basement-9.6.0.aar
+#Assets/Plugins/Android/play-services-basement-9.6.0.aar.meta
+#Assets/Plugins/Android/play-services-gcm-9.6.0.aar
+#Assets/Plugins/Android/play-services-gcm-9.6.0.aar.meta
+#Assets/Plugins/Android/play-services-iid-9.6.0.aar
+#Assets/Plugins/Android/play-services-iid-9.6.0.aar.meta
+#Assets/Plugins/Android/play-services-tasks-9.6.0.aar
+#Assets/Plugins/Android/play-services-tasks-9.6.0.aar.meta
+
+
+# ============ #
+#   Metadata   #
+# ============ #
+
+Library/metadata/
+Library/metadata/00/00000000000000004000000000000000
+Assets/Chartboost/Editor.meta
