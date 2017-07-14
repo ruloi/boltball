@@ -72,7 +72,7 @@ public class PlayerMovement : Bolt.EntityBehaviour<ITutorialPlayerState> {
 
 		if (resetState) {
 			// we got a correction from the server, reset (this only runs on the client)
-
+			Debug.Log("Correct");
 			_motor.SetState(cmd.Result.Position, cmd.Result.Velocity, cmd.Result.IsGrounded, cmd.Result.JumpFrames);
 		}
 		else {
@@ -93,7 +93,7 @@ public class PlayerMovement : Bolt.EntityBehaviour<ITutorialPlayerState> {
 		_left = Input.GetKey(KeyCode.A);
 		_right = Input.GetKey(KeyCode.D);
 		_jump = Input.GetKeyDown(KeyCode.Space);
-
+		/*
 		if (mouse) {
 			_yaw += (Input.GetAxisRaw("Mouse X") * MOUSE_SENSITIVITY);
 			_yaw %= 360f;
@@ -101,6 +101,7 @@ public class PlayerMovement : Bolt.EntityBehaviour<ITutorialPlayerState> {
 			_pitch += (-Input.GetAxisRaw("Mouse Y") * MOUSE_SENSITIVITY);
 			_pitch = Mathf.Clamp(_pitch, -85f, +85f);
 		}
+		*/
 	}
 
 	public void ProcessInput() {

@@ -110,6 +110,8 @@ namespace Bolt.AdvancedTutorial
 
 		public State Move (bool forward, bool backward, bool left, bool right, bool jump, float yaw)
 		{
+			jump = false;
+
 			var moving = false;
 			var movingDir = Vector3.zero;
 
@@ -158,7 +160,7 @@ namespace Bolt.AdvancedTutorial
 			// apply drag
 			_state.velocity.x = ApplyDrag (_state.velocity.x, drag.x);
 			//_state.velocity.y = ApplyDrag (_state.velocity.y, drag.y);
-			_state.velocity.z = ApplyDrag (_state.velocity.z, drag.z);
+			_state.velocity.y = ApplyDrag (_state.velocity.y, drag.y);
 
 			// this might seem weird, but it actually gets around a ton of issues - we basically apply 
 			// gravity on the Y axis on every frame to simulate instant gravity if you step over a ledge
