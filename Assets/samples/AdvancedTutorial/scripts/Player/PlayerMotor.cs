@@ -114,14 +114,14 @@ namespace Bolt.AdvancedTutorial
 			var movingDir = Vector3.zero;
 
 			if (forward ^ backward) {
-				movingDir.z = forward ? +1 : -1;
+				movingDir.y = forward ? +1 : -1;
 			}
 
 			if (left ^ right) {
 				movingDir.x = right ? +1 : -1;
 			}
 
-			if (movingDir.x != 0 || movingDir.z != 0) {
+			if (movingDir.x != 0 || movingDir.y != 0) {
 				moving = true;
 				movingDir = Vector3.Normalize (Quaternion.Euler (0, yaw, 0) * movingDir);
 			}
@@ -157,12 +157,12 @@ namespace Bolt.AdvancedTutorial
 
 			// apply drag
 			_state.velocity.x = ApplyDrag (_state.velocity.x, drag.x);
-			_state.velocity.y = ApplyDrag (_state.velocity.y, drag.y);
+			//_state.velocity.y = ApplyDrag (_state.velocity.y, drag.y);
 			_state.velocity.z = ApplyDrag (_state.velocity.z, drag.z);
 
 			// this might seem weird, but it actually gets around a ton of issues - we basically apply 
 			// gravity on the Y axis on every frame to simulate instant gravity if you step over a ledge
-			_state.velocity.y = Mathf.Min (_state.velocity.y, gravityForce);
+			//_state.velocity.y = Mathf.Min (_state.velocity.y, gravityForce);
 
 			// apply movement
 			Move (_state.velocity);

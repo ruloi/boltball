@@ -1,8 +1,9 @@
 using UnityEngine;
 using System.Collections;
 using UnityStandardAssets.CrossPlatformInput;
+using Bolt.AdvancedTutorial;
 
-public class PlayerMovement : MonoBehaviour {
+public class PlayerMovement : Bolt.EntityBehaviour<ITutorialPlayerState> {
 
 	public int deaths = 0;
 
@@ -26,6 +27,81 @@ public class PlayerMovement : MonoBehaviour {
 	float shootDistance = 0.9f;
 	float shootForce = 7.0f;
 
+	PlayerMotor _motor;
+
+	const float MOUSE_SENSITIVITY = 2f;
+
+
+	bool _forward;
+	bool _backward;
+	bool _left;
+	bool _right;
+	bool _jump;
+
+	float _yaw;
+	float _pitch;
+
+	void Awake() {
+		_motor = GetComponent<PlayerMotor>();
+	}
+
+	public override void Attached() {
+		state.SetTransforms(state.Transform, transform);
+	}
+
+	public override void SimulateController() {
+		PollKeys(false);
+
+		ITutorialPlayerCommandInput input = TutorialPlayerCommand.Create();
+
+		input.Forward = _forward;
+		input.Backward = _backward;
+		input.Left = _left;
+		input.Right = _right;
+		input.Jump = _jump;
+		input.Yaw = _yaw;
+		input.Pitch = _pitch;
+
+		entity.QueueInput(input);
+
+
+	}
+
+	public override void ExecuteCommand(Bolt.Command command, bool resetState) {
+		TutorialPlayerCommand cmd = (TutorialPlayerCommand)command;
+
+		if (resetState) {
+			// we got a correction from the server, reset (this only runs on the client)
+
+			_motor.SetState(cmd.Result.Position, cmd.Result.Velocity, cmd.Result.IsGrounded, cmd.Result.JumpFrames);
+		}
+		else {
+			// apply movement (this runs on both server and client)
+			PlayerMotor.State motorState = _motor.Move(cmd.Input.Forward, cmd.Input.Backward, cmd.Input.Left, cmd.Input.Right, cmd.Input.Jump, cmd.Input.Yaw);
+
+			// copy the motor state to the commands result (this gets sent back to the client)
+			cmd.Result.Position = motorState.position;
+			cmd.Result.Velocity = motorState.velocity;
+			cmd.Result.IsGrounded = motorState.isGrounded;
+			cmd.Result.JumpFrames = motorState.jumpFrames;
+		}
+	}
+
+	void PollKeys(bool mouse) {
+		_forward = Input.GetKey(KeyCode.W);
+		_backward = Input.GetKey(KeyCode.S);
+		_left = Input.GetKey(KeyCode.A);
+		_right = Input.GetKey(KeyCode.D);
+		_jump = Input.GetKeyDown(KeyCode.Space);
+
+		if (mouse) {
+			_yaw += (Input.GetAxisRaw("Mouse X") * MOUSE_SENSITIVITY);
+			_yaw %= 360f;
+
+			_pitch += (-Input.GetAxisRaw("Mouse Y") * MOUSE_SENSITIVITY);
+			_pitch = Mathf.Clamp(_pitch, -85f, +85f);
+		}
+	}
 
 	public void ProcessInput() {
 		/*
@@ -110,8 +186,8 @@ public class PlayerMovement : MonoBehaviour {
 
 	}
 
-	public void FixedUpdate () {
-		ProcessInput();
+	public void Update () {
+		PollKeys(true);
 
 	}
 
@@ -170,7 +246,7 @@ public class PlayerMovement : MonoBehaviour {
 	public void Start () {
 		
 		//StartCoroutine(CanMoveRoutine());
-		GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+		//GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 		SetColor();
 
 		if(IsLeftSide()){
