@@ -84,6 +84,22 @@ public class PlayerMovement : Bolt.EntityBehaviour<ITutorialPlayerState> {
 			cmd.Result.Velocity = motorState.velocity;
 			cmd.Result.IsGrounded = motorState.isGrounded;
 			cmd.Result.JumpFrames = motorState.jumpFrames;
+
+			if (cmd.Input.Jump)
+			{
+				if (!wasShooting)
+				{
+					wasShooting = true;
+					//photonView.RPC("Shoot",PhotonTargets.All,null);
+					Shoot();
+				}
+				ColorShooting(true);
+			}
+			else
+			{
+				wasShooting = false;
+				ColorShooting(false);
+			}
 		}
 	}
 
@@ -102,6 +118,7 @@ public class PlayerMovement : Bolt.EntityBehaviour<ITutorialPlayerState> {
 			_pitch = Mathf.Clamp(_pitch, -85f, +85f);
 		}
 		*/
+
 	}
 
 	public void ProcessInput() {
@@ -168,21 +185,7 @@ public class PlayerMovement : Bolt.EntityBehaviour<ITutorialPlayerState> {
 
 		// if (canShoot == true)
 		// {
-		if (shooting)
-		{
-			if (!wasShooting)
-			{
-				wasShooting = true;
-				//photonView.RPC("Shoot",PhotonTargets.All,null);
-				Shoot();
-			}
-			ColorShooting(true);
-		}
-		else
-		{
-			wasShooting = false;
-			ColorShooting(false);
-		}
+
 		//}
 
 	}

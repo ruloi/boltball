@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Bolt.AdvancedTutorial
 {
-	[RequireComponent (typeof(CharacterController))]
+	//[RequireComponent (typeof(CharacterController))]
 	public class PlayerMotor : MonoBehaviour
 	{
 
@@ -17,8 +17,10 @@ namespace Bolt.AdvancedTutorial
 			public int jumpFrames;
 		}
 
+		Rigidbody2D rig;
+
 		State _state;
-		CharacterController _cc;
+		//CharacterController _cc;
 
 		[SerializeField]
 		float skinWidth = 0.08f;
@@ -33,10 +35,10 @@ namespace Bolt.AdvancedTutorial
 		int jumpTotalFrames = 30;
 
 		[SerializeField]
-		float movingSpeed = 4f;
+		float movingSpeed = 0.5f;
 
 		[SerializeField]
-		float maxVelocity = 32f;
+		float maxVelocity = 2f;
 
 		[SerializeField]
 		Vector3 drag = new Vector3 (1f, 0f, 1f);
@@ -49,7 +51,7 @@ namespace Bolt.AdvancedTutorial
 				Vector3 p;
 
 				p = transform.position;
-				p.y += _cc.radius;
+				//p.y += _cc.radius;
 				p.y -= (skinWidth * 2);
 
 				return p;
@@ -61,7 +63,7 @@ namespace Bolt.AdvancedTutorial
 				Vector3 p;
 
 				p = transform.position;
-				p.y += _cc.height / 2f;
+				//p.y += _cc.height / 2f;
 
 				return p;
 			}
@@ -75,7 +77,8 @@ namespace Bolt.AdvancedTutorial
 
 		void Awake ()
 		{
-			_cc = GetComponent<CharacterController> ();
+			rig = GetComponent<Rigidbody2D>();
+		//	_cc = GetComponent<CharacterController> ();
 			_state = new State ();
 			_state.position = transform.localPosition;
 		}
@@ -94,15 +97,21 @@ namespace Bolt.AdvancedTutorial
 
 		void Move (Vector3 velocity)
 		{
-			bool isGrounded = false;
+			bool isGrounded = true;
 
+			rig.velocity = _state.velocity;
+			Debug.Log("VEL: " + _state.velocity);
+			/*
 			isGrounded = isGrounded || _cc.Move (velocity * BoltNetwork.frameDeltaTime) == CollisionFlags.Below;
 			isGrounded = isGrounded || _cc.isGrounded;
 			isGrounded = isGrounded || Physics.CheckSphere (sphere, _cc.radius, layerMask);
 
+			*/
+			/*
 			if (isGrounded && !_state.isGrounded) {
 				_state.velocity = new Vector3 ();
 			}
+			*/
 
 			_state.isGrounded = isGrounded;
 			_state.position = transform.localPosition;
@@ -110,6 +119,7 @@ namespace Bolt.AdvancedTutorial
 
 		public State Move (bool forward, bool backward, bool left, bool right, bool jump, float yaw)
 		{
+			_state.isGrounded = true;
 			jump = false;
 
 			var moving = false;
@@ -125,10 +135,12 @@ namespace Bolt.AdvancedTutorial
 
 			if (movingDir.x != 0 || movingDir.y != 0) {
 				moving = true;
-				movingDir = Vector3.Normalize (Quaternion.Euler (0, yaw, 0) * movingDir);
+				movingDir = Vector3.Normalize (movingDir);
 			}
 
-			//
+			_state.velocity += movingDir * movingSpeed;
+
+			/*
 			if (_state.isGrounded) {
 				if (jump && _state.jumpFrames == 0) {
 					_state.jumpFrames = (byte)jumpTotalFrames;
@@ -141,6 +153,7 @@ namespace Bolt.AdvancedTutorial
 			} else {
 				_state.velocity.y += gravityForce * BoltNetwork.frameDeltaTime;
 			}
+			
 
 			if (_state.jumpFrames > 0) {
 				// calculate force
@@ -150,6 +163,7 @@ namespace Bolt.AdvancedTutorial
 
 				Move (new Vector3 (0, force, 0));
 			}
+			*/
 
 			// decrease jump frames
 			_state.jumpFrames = Mathf.Max (0, _state.jumpFrames - 1);
@@ -170,10 +184,10 @@ namespace Bolt.AdvancedTutorial
 			Move (_state.velocity);
 
 			// set local rotation
-			transform.localRotation = Quaternion.Euler (0, yaw, 0);
+			//transform.localRotation = Quaternion.Euler (0, yaw, 0);
 
 			// detect tunneling
-			DetectTunneling ();
+			//DetectTunneling ();
 
 			// update position
 			_state.position = transform.localPosition;
@@ -196,20 +210,21 @@ namespace Bolt.AdvancedTutorial
 		void DetectTunneling ()
 		{
 			RaycastHit hit;
-
+			/*
 			if (Physics.Raycast (waist, Vector3.down, out hit, _cc.height / 2, layerMask)) {
 				transform.position = hit.point;
 			}
+			*/
 		}
 
 		void OnDrawGizmos ()
 		{
 			if (Application.isPlaying) {
 				Gizmos.color = _state.isGrounded ? Color.green : Color.red;
-				Gizmos.DrawWireSphere (sphere, _cc.radius);
+				//Gizmos.DrawWireSphere (sphere, _cc.radius);
 
 				Gizmos.color = Color.magenta;
-				Gizmos.DrawLine (waist, waist + new Vector3 (0, -(_cc.height / 2f), 0));
+				//Gizmos.DrawLine (waist, waist + new Vector3 (0, -(_cc.height / 2f), 0));
 			}
 		}
 	}

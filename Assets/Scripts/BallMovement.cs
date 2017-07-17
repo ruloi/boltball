@@ -1,13 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BallMovement :  MonoBehaviour
+public class BallMovement :  Bolt.EntityBehaviour<IBallState>
 {
 	private float maxVelocity = 30.0f;
 	private float minusOne = -1f;
 
 	public Vector2 startPos;
-   
+
+	public override void Attached()
+	{
+		state.SetTransforms(state.Transform, transform);
+	}
 
 
     // Update is called once per frame
