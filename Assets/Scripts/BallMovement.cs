@@ -11,11 +11,14 @@ public class BallMovement :  Bolt.EntityBehaviour<IBallState>
 	public override void Attached()
 	{
 		state.SetTransforms(state.Transform, transform);
+		state.Velocity = GetComponent<Rigidbody2D>().velocity;
 	}
 
 
     // Update is called once per frame
+	/*
     public void FixedUpdate () {
+		
 		Vector2 newVelocity = new Vector2();
 		Rigidbody2D rigidbody = GetComponent<Rigidbody2D>();
 		newVelocity = GetComponent<Rigidbody2D>().velocity;
@@ -38,6 +41,7 @@ public class BallMovement :  Bolt.EntityBehaviour<IBallState>
 
 		rigidbody.velocity = newVelocity;
 	}
+	*/
 
 	public void OnSyncedTriggerEnter(Collision2D other) {
 		if (other.gameObject.tag == "GoalLeft") {
@@ -58,7 +62,8 @@ public class BallMovement :  Bolt.EntityBehaviour<IBallState>
 
 
 	public void Shoot(Vector2 dir, float force){
-		GetComponent<Rigidbody2D>().AddForce(dir * force,ForceMode2D.Impulse);
+		//GetComponent<Rigidbody2D>().AddForce(dir * force,ForceMode2D.Impulse);
+		state.Velocity = new Vector3(state.Velocity.x + dir.x * force,state.Velocity.y + dir.y * force,0);
 	}
 
     IEnumerator ResetBall()

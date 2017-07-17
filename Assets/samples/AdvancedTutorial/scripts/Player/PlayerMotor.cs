@@ -100,7 +100,7 @@ namespace Bolt.AdvancedTutorial
 			bool isGrounded = true;
 
 			rig.velocity = _state.velocity;
-			Debug.Log("VEL: " + _state.velocity);
+
 			/*
 			isGrounded = isGrounded || _cc.Move (velocity * BoltNetwork.frameDeltaTime) == CollisionFlags.Below;
 			isGrounded = isGrounded || _cc.isGrounded;
@@ -113,7 +113,7 @@ namespace Bolt.AdvancedTutorial
 			}
 			*/
 
-			_state.isGrounded = isGrounded;
+			//_state.isGrounded = isGrounded;
 			_state.position = transform.localPosition;
 		}
 
@@ -166,15 +166,15 @@ namespace Bolt.AdvancedTutorial
 			*/
 
 			// decrease jump frames
-			_state.jumpFrames = Mathf.Max (0, _state.jumpFrames - 1);
+			//_state.jumpFrames = Mathf.Max (0, _state.jumpFrames - 1);
 
 			// clamp velocity
 			_state.velocity = Vector3.ClampMagnitude (_state.velocity, maxVelocity);
 
 			// apply drag
-			_state.velocity.x = ApplyDrag (_state.velocity.x, drag.x);
+			//_state.velocity.x = ApplyDrag (_state.velocity.x, drag.x);
 			//_state.velocity.y = ApplyDrag (_state.velocity.y, drag.y);
-			_state.velocity.y = ApplyDrag (_state.velocity.y, drag.y);
+			//_state.velocity.y = ApplyDrag (_state.velocity.y, drag.y);
 
 			// this might seem weird, but it actually gets around a ton of issues - we basically apply 
 			// gravity on the Y axis on every frame to simulate instant gravity if you step over a ledge
