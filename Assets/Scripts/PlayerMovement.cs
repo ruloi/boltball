@@ -64,8 +64,6 @@ public class PlayerMovement : Bolt.EntityBehaviour<ITutorialPlayerState> {
 		input.Pitch = _pitch;
 
 		entity.QueueInput(input);
-
-
 	}
 
 	public override void ExecuteCommand(Bolt.Command command, bool resetState) {
@@ -91,7 +89,6 @@ public class PlayerMovement : Bolt.EntityBehaviour<ITutorialPlayerState> {
 				if (!wasShooting)
 				{
 					wasShooting = true;
-					//photonView.RPC("Shoot",PhotonTargets.All,null);
 					Shoot();
 				}
 				ColorShooting(true);
@@ -110,86 +107,9 @@ public class PlayerMovement : Bolt.EntityBehaviour<ITutorialPlayerState> {
 		_left = Input.GetKey(KeyCode.A);
 		_right = Input.GetKey(KeyCode.D);
 		_jump = Input.GetKeyDown(KeyCode.Space);
-		/*
-		if (mouse) {
-			_yaw += (Input.GetAxisRaw("Mouse X") * MOUSE_SENSITIVITY);
-			_yaw %= 360f;
-
-			_pitch += (-Input.GetAxisRaw("Mouse Y") * MOUSE_SENSITIVITY);
-			_pitch = Mathf.Clamp(_pitch, -85f, +85f);
-		}
-		*/
 
 	}
 
-	public void ProcessInput() {
-		/*
-		if( photonView.isMine == false && PhotonNetwork.connected == true )
-		{
-			return;
-		}
-		*/
-
-		if (!canMove)
-			return;
-
-		float horizontal = CrossPlatformInputManager.GetAxis("Horizontal");
-		float vertical = CrossPlatformInputManager.GetAxis("Vertical");
-		bool shooting = false;
-
-
-		if(Input.touchCount > 1){
-			shooting = true;
-		}else{
-			shooting = false;
-		}
-
-
-		if(Input.GetKey(KeyCode.Space)){
-			shooting = true;
-		}else{
-			shooting = false;
-		}
-
-		Rigidbody2D rig = GetComponent<Rigidbody2D>();
-
-		Vector2 joystickVector = new Vector2(horizontal,vertical);
-		joystickVector.Normalize();
-
-
-		vertical = joystickVector.y * accelerationRate * Time.deltaTime;
-		horizontal = joystickVector.x * accelerationRate * Time.deltaTime;
-
-		rig.AddForce(new Vector2(horizontal,vertical));
-
-		Vector2 newVelocity = new Vector2();
-		newVelocity = rig.velocity;
-
-		if(rig.velocity.x > maxVelocity){
-			newVelocity.x = maxVelocity;
-		}
-
-		if(rig.velocity.y > maxVelocity){
-			newVelocity.y = maxVelocity;
-		}
-
-		if(rig.velocity.x < maxVelocity * minusOne){
-			newVelocity.x = maxVelocity * minusOne;
-		}
-
-		if(rig.velocity.y < maxVelocity * minusOne){
-			newVelocity.y = maxVelocity * minusOne;
-		}
-
-		rig.velocity = newVelocity;
-
-
-		// if (canShoot == true)
-		// {
-
-		//}
-
-	}
 
 	public void Update () {
 		PollKeys(true);
@@ -208,20 +128,7 @@ public class PlayerMovement : Bolt.EntityBehaviour<ITutorialPlayerState> {
 
 	}
 
-	/*
-	public override void OnSyncedUpdate () {
-		FP vertical = TrueSyncInput.GetFP (0);
-		FP horizontal = TrueSyncInput.GetFP (1);
-		//Debug.Log(vertical + " # " + horizontal);
-		vertical *= 1125000 * TrueSyncManager.DeltaTime;
-		horizontal *= 1125000 * TrueSyncManager.DeltaTime;
 
-
-
-		tsRigidBody2D.velocity = new Vector2(horizontal*maxVelocity,vertical*maxVelocity);
-
-	}
-	*/
 
 	public void SetColor(){
 		if(IsLeftSide()){

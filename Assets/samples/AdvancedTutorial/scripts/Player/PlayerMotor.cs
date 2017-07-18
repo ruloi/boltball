@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Bolt.AdvancedTutorial
 {
-	//[RequireComponent (typeof(CharacterController))]
+	
 	public class PlayerMotor : MonoBehaviour
 	{
 
@@ -20,7 +20,6 @@ namespace Bolt.AdvancedTutorial
 		Rigidbody2D rig;
 
 		State _state;
-		//CharacterController _cc;
 
 		[SerializeField]
 		float skinWidth = 0.08f;
@@ -51,7 +50,6 @@ namespace Bolt.AdvancedTutorial
 				Vector3 p;
 
 				p = transform.position;
-				//p.y += _cc.radius;
 				p.y -= (skinWidth * 2);
 
 				return p;
@@ -63,7 +61,6 @@ namespace Bolt.AdvancedTutorial
 				Vector3 p;
 
 				p = transform.position;
-				//p.y += _cc.height / 2f;
 
 				return p;
 			}
@@ -78,7 +75,7 @@ namespace Bolt.AdvancedTutorial
 		void Awake ()
 		{
 			rig = GetComponent<Rigidbody2D>();
-		//	_cc = GetComponent<CharacterController> ();
+
 			_state = new State ();
 			_state.position = transform.localPosition;
 		}
@@ -103,19 +100,6 @@ namespace Bolt.AdvancedTutorial
 			_state.velocity = velocity;
 			rig.velocity = _state.velocity;
 
-			/*
-			isGrounded = isGrounded || _cc.Move (velocity * BoltNetwork.frameDeltaTime) == CollisionFlags.Below;
-			isGrounded = isGrounded || _cc.isGrounded;
-			isGrounded = isGrounded || Physics.CheckSphere (sphere, _cc.radius, layerMask);
-
-			*/
-			/*
-			if (isGrounded && !_state.isGrounded) {
-				_state.velocity = new Vector3 ();
-			}
-			*/
-
-			//_state.isGrounded = isGrounded;
 			_state.position = transform.localPosition;
 		}
 
@@ -168,12 +152,7 @@ namespace Bolt.AdvancedTutorial
 
 		void DetectTunneling ()
 		{
-			RaycastHit hit;
-			/*
-			if (Physics.Raycast (waist, Vector3.down, out hit, _cc.height / 2, layerMask)) {
-				transform.position = hit.point;
-			}
-			*/
+			
 		}
 
 		void OnDrawGizmos ()
