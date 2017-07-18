@@ -217,6 +217,7 @@ namespace Bolt.AdvancedTutorial
                 cmd.Result.jumpFrames = result.jumpFrames;
                 cmd.Result.isGrounded = result.isGrounded;
 
+
                 if (cmd.IsFirstExecution)
                 {
                     // animation

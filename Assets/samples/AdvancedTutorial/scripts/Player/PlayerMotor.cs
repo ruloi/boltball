@@ -93,12 +93,14 @@ namespace Bolt.AdvancedTutorial
 
 			// assign local position
 			transform.localPosition = _state.position;
+			rig.velocity = velocity;
 		}
 
 		void Move (Vector3 velocity)
 		{
 			bool isGrounded = true;
 
+			_state.velocity = velocity;
 			rig.velocity = _state.velocity;
 
 			/*
@@ -140,54 +142,11 @@ namespace Bolt.AdvancedTutorial
 
 			_state.velocity += movingDir * movingSpeed;
 
-			/*
-			if (_state.isGrounded) {
-				if (jump && _state.jumpFrames == 0) {
-					_state.jumpFrames = (byte)jumpTotalFrames;
-					_state.velocity += movingDir * movingSpeed;
-				}
-
-				if (moving && _state.jumpFrames == 0) {
-					Move (movingDir * movingSpeed);
-				}
-			} else {
-				_state.velocity.y += gravityForce * BoltNetwork.frameDeltaTime;
-			}
-			
-
-			if (_state.jumpFrames > 0) {
-				// calculate force
-				float force;
-				force = (float)_state.jumpFrames / (float)jumpTotalFrames;
-				force = jumpForce * force;
-
-				Move (new Vector3 (0, force, 0));
-			}
-			*/
-
-			// decrease jump frames
-			//_state.jumpFrames = Mathf.Max (0, _state.jumpFrames - 1);
-
 			// clamp velocity
 			_state.velocity = Vector3.ClampMagnitude (_state.velocity, maxVelocity);
 
-			// apply drag
-			//_state.velocity.x = ApplyDrag (_state.velocity.x, drag.x);
-			//_state.velocity.y = ApplyDrag (_state.velocity.y, drag.y);
-			//_state.velocity.y = ApplyDrag (_state.velocity.y, drag.y);
-
-			// this might seem weird, but it actually gets around a ton of issues - we basically apply 
-			// gravity on the Y axis on every frame to simulate instant gravity if you step over a ledge
-			//_state.velocity.y = Mathf.Min (_state.velocity.y, gravityForce);
-
 			// apply movement
 			Move (_state.velocity);
-
-			// set local rotation
-			//transform.localRotation = Quaternion.Euler (0, yaw, 0);
-
-			// detect tunneling
-			//DetectTunneling ();
 
 			// update position
 			_state.position = transform.localPosition;

@@ -47,6 +47,7 @@ public class PlayerMovement : Bolt.EntityBehaviour<ITutorialPlayerState> {
 
 	public override void Attached() {
 		state.SetTransforms(state.Transform, transform);
+		state.Velocity = GetComponent<Rigidbody2D>().velocity;
 	}
 
 	public override void SimulateController() {
